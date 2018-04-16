@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-      "visit:page": "node index.js -- --page"
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -13,6 +11,7 @@
     "puppeteer": "^1.1.1"
   },
   "devDependencies": {
-    "electron": "^1.8.4"
+    "electron": "^1.8.4",
+    "yargs": "^11.0.0"
   }
 }

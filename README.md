@@ -8,12 +8,12 @@ You can run this app for a normal page or YouTube page
 
 ### A specific page
 
-npm run visit:page --url http://www.example.com/
+node index.js --url http://www.example.com/ --count 10
 
 ### All videos in a channel
 
-npm run visit:youtubeChannel -- --url channelId
+node index.js --youtubeChannel channelId --count 10
 
 ### A specific YouTube video
 
-npm run visit:youtube -- --url videoId
+node index.js --youtubeVideo videoId --count 10
