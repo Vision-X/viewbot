@@ -1,4 +1,5 @@
-const util = require('./util/util');
+const util = require('./util/util'),
+logger = require('./logger');
 
 const argv = require('yargs')
                 .usage('Usage: $0 <command> [options]')
@@ -10,12 +11,17 @@ const argv = require('yargs')
 
 ; (async () => {
     const count = argv.count || 1;
+    logger.log('Running for ' + count + ' times');
+
     if (argv.url) {
+        const url = argv.url;
         page = require('./plugins/page');
 
         for (let i = 0; i < count; i++) {
-            await page.visit(argv.url)
+            logger.log('Loading ' + url);
+            await page.visit(url)
         }
+        process.exit();
     }
 
 })()
