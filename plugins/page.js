@@ -9,9 +9,9 @@ const Page = {
             const randomProxy = await proxyUtil.getRandomProxy();
             const browser = await puppeteer.launch({
                 ignoreHTTPSErrors: true,
-                // args: [
-                //     '--proxy-server=' + proxy,
-                // ]
+                args: [
+                    '--proxy-server=' + randomProxy,
+                ]
             });
             const page = await browser.newPage();
             await page.goto(url, { waitUntil: 'networkidle2' })
