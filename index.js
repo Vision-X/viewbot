@@ -1,5 +1,7 @@
 const util = require('./util/util'),
-logger = require('./logger');
+proxyUtil = require('./proxy/proxy-util'),
+logger = require('./logger'),
+page = require('./plugins/page');
 
 const argv = require('yargs')
                 .usage('Usage: $0 <command> [options]')
@@ -15,11 +17,10 @@ const argv = require('yargs')
 
     if (argv.url) {
         const url = argv.url;
-        page = require('./plugins/page');
 
         for (let i = 0; i < count; i++) {
             logger.log('Loading ' + url);
-            await page.visit(url)
+            await page.visit(url);
         }
         process.exit();
     }

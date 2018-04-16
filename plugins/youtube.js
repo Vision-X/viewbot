@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer'),
 logger = require('./logger'),
 util = require('./util/util'),
 youtubeUtil = require('./util/youtube-util');
-proxyUtil = require('./util/proxy-util');
+proxyUtil = require('./proxy/proxy-util');
 
 const promisesQueue = new Array();
 const MAX_QUEUE_LENGTH = 3;

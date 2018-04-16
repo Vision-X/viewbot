@@ -1,8 +1,6 @@
 const puppeteer = require('puppeteer'),
 logger = require('../../logger');
 
-let proxies = new Set();
-
 module.exports = {
     getProxies: () => {
         return new Promise(async resolve => {
@@ -17,9 +15,8 @@ module.exports = {
                 })
             });
             logger.log("Proxy list", proxiesList.length);
-            proxies = new Set([...proxies, ...proxiesList]);
             await browser.close();
-            resolve(proxies);
+            resolve(proxiesList);
         })
     }
 }

@@ -7,12 +7,13 @@ const freeProxyList = require('./source/free-proxy-list');
 
 const ProxyUtil = {
     updateProxiesList: (source) => {
-        logger.log("Updating proxies");
+        logger.log("Updating proxies. List length: " + proxies.size);
         return source.getProxies();
     },
     getRandomProxy: async () => {
         if (proxies.size < 5) {
-            await ProxyUtil.updateProxiesList(freeProxyList);
+            const proxiesList = await ProxyUtil.updateProxiesList(freeProxyList);
+            proxies = new Set([...proxies, ...proxiesList]);
         }
 
         let proxiesArray = [...proxies];

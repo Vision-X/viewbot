@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer'),
-proxyUtil = require('./proxy-util'),
+proxyUtil = require('../proxy/proxy-util'),
 logger = require('../logger');
 
 const YoutubeUtil = {
