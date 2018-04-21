@@ -1,12 +1,14 @@
 const util = require('./util/util'),
 proxyUtil = require('./proxy/proxy-util'),
 logger = require('./logger'),
-page = require('./plugins/page');
+PromisePool = require('es6-promise-pool'),
+Page = require('./plugins/page');
 
 const argv = require('yargs')
                 .usage('Usage: $0 <command> [options]')
                 .example('$0 --url pageUrl --count 10', 'visit the page 10 times')
                 .alias('c', 'count')
+                .alias('p', 'use-puppeteer')
                 .help('h')
                 .alias('h', 'help')
                 .argv;
@@ -16,13 +18,23 @@ const argv = require('yargs')
     logger.log('Running for ' + count + ' times');
 
     if (argv.url) {
-        const url = argv.url;
+        const urls = argv.url.split(",");
+        const usePuppeteer = argv.usePuppeteer || true;
+        const maxConcurrent = argv.maxConcurrent || 3;
 
-        for (let i = 0; i < count; i++) {
-            logger.log('Loading ' + url);
-            await page.visit(url);
+        const page = new Page(usePuppeteer);
+
+        const generatePromises = function* () {
+            for (let i = 0; i < count; i++) {
+                const url = util.getRandomItem(urls);
+                yield page.visit(url);
+            }
         }
-        process.exit();
+        const pool = new PromisePool(generatePromises(), maxConcurrent);
+        pool.start().then(() => {
+            logger.log('Complete');
+            process.exit();
+        });
     }
 
 })()
